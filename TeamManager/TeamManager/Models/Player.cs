@@ -7,17 +7,24 @@ namespace TeamManager.Models
 {
     public class Player
     {
-        public int ID { get; set; }
-        public string firstNames { get; set; }
-        public string surname { get; set; }
+        public int PlayerID { get; set; }
+        public int TeamID { get; set; }
+        public string FirstNames { get; set; }
+        public string Surname { get; set; }
         public DateTime DOB { get; set; }
-        public int goals { get; set; }
-        public int appearances { get; set; }
-        public int minutesPlayed { get; set; }
-        public string personalNotes { get; set; }
-        public string coachingNotes { get; set; }
-        public string contactEmail { get; set; }
+        public int Goals { get; set; }
+        public int Appearances { get; set; }
+        public int MinutesPlayed { get; set; }
+        public string PersonalNotes { get; set; }
+        public string CoachingNotes { get; set; }
+        public string ContactEmail { get; set; }
+        public int YellowCards { get; set; }
+        public int RedCards { get; set; }
 
-        public virtual ICollection<Match> Matches { get; set; }
+        public virtual ICollection<MatchTeam> Matches { get; set; }
+        public virtual ICollection<MatchEvent> MatchEvents { get; set; }
+        public virtual ICollection<TrainingTeam> Training { get; set; }
+        public virtual ICollection<Team> Team { get; set; }    
+
     }
 }

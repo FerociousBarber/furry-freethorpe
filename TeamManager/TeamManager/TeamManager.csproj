@@ -160,8 +160,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\MatchEvent.cs" />
+    <Compile Include="Models\MatchTeam.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerRole.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\Training.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
