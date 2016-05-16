@@ -23,7 +23,7 @@ namespace TeamManager.Models
 
         public virtual ICollection<MatchTeam> Matches { get; set; }
         public virtual ICollection<MatchEvent> MatchEvents { get; set; }
-        public virtual ICollection<TrainingTeam> Training { get; set; }
+        public virtual ICollection<Training> Training { get; set; }
         public virtual ICollection<Team> Team { get; set; }    
 
     }

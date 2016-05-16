@@ -1,0 +1,50 @@
+﻿@model TeamManager.Models.MatchTeam
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MatchTeam</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Match.OppositionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Match.OppositionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.FirstNames)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.FirstNames)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerRating)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MatchTeamID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TeamManager.Models.Match>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Location.ClubName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MatchDatetime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OppositionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Formation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MatchNotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SelectedMatchType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location.ClubName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MatchDatetime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OppositionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Formation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MatchNotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SelectedMatchType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MatchID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MatchID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MatchID })
+        </td>
+    </tr>
+}
+
+</table>

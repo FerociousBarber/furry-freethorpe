@@ -1,0 +1,74 @@
+﻿@model TeamManager.Models.Match
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Match</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Location.ClubName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location.ClubName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MatchDatetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatchDatetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OppositionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OppositionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Formation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Formation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MatchNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatchNotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SelectedMatchType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SelectedMatchType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MatchID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TeamManager.Models.MatchTeam>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Match.OppositionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player.FirstNames)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerRating)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Match.OppositionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player.FirstNames)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerRating)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MatchTeamID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MatchTeamID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MatchTeamID })
+        </td>
+    </tr>
+}
+
+</table>
