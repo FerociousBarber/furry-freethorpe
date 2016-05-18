@@ -1,0 +1,619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TeamManager1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClubName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar(max)" />
+          <Property Name="AddressLine2" Type="nvarchar(max)" />
+          <Property Name="AddressLine3" Type="nvarchar(max)" />
+          <Property Name="AddressPostCode" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="MatchID" />
+          </Key>
+          <Property Name="MatchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MatchDatetime" Type="datetime" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="OppositionName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="Formation" Type="int" Nullable="false" />
+          <Property Name="MatchNotes" Type="nvarchar(max)" />
+          <Property Name="SelectedMatchType" Type="nvarchar(max)" />
+          <Property Name="TeamID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MatchEvent">
+          <Key>
+            <PropertyRef Name="MatchEventID" />
+          </Key>
+          <Property Name="MatchEventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerID" Type="int" Nullable="false" />
+          <Property Name="MatchID" Type="int" Nullable="false" />
+          <Property Name="MatchEventType" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MatchTeam">
+          <Key>
+            <PropertyRef Name="MatchTeamID" />
+          </Key>
+          <Property Name="MatchTeamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MatchID" Type="int" />
+          <Property Name="PlayerID" Type="int" Nullable="false" />
+          <Property Name="PlayerRoleID" Type="int" />
+          <Property Name="PlayerRating" Type="int" />
+          <Property Name="TrainingID" Type="int" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+          </Key>
+          <Property Name="PlayerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamID" Type="int" Nullable="false" />
+          <Property Name="FirstNames" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DOB" Type="datetime" Nullable="false" />
+          <Property Name="Goals" Type="int" />
+          <Property Name="Appearances" Type="int" />
+          <Property Name="MinutesPlayed" Type="int" />
+          <Property Name="PersonalNotes" Type="nvarchar(max)" />
+          <Property Name="CoachingNotes" Type="nvarchar(max)" />
+          <Property Name="ContactEmail" Type="nvarchar(max)" />
+          <Property Name="YellowCards" Type="int" />
+          <Property Name="RedCards" Type="int" />
+        </EntityType>
+        <EntityType Name="PlayerRole">
+          <Key>
+            <PropertyRef Name="PlayerRoleID" />
+          </Key>
+          <Property Name="PlayerRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerRoleDesc" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamID" />
+          </Key>
+          <Property Name="TeamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SelectedTeamSize" Type="int" />
+        </EntityType>
+        <EntityType Name="Training">
+          <Key>
+            <PropertyRef Name="TrainingID" />
+          </Key>
+          <Property Name="TrainingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrainingDatetime" Type="datetime" Nullable="false" />
+          <Property Name="TrainingNotes" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_Match_dbo_Location_LocationID">
+          <End Role="Location" Type="Self.Location" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Match_dbo_Team_TeamID">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamID" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="TeamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchEvent_dbo_Match_MatchID">
+          <End Role="Match" Type="Self.Match" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MatchEvent" Type="Self.MatchEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="MatchID" />
+            </Principal>
+            <Dependent Role="MatchEvent">
+              <PropertyRef Name="MatchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchEvent_dbo_Player_PlayerID">
+          <End Role="Player" Type="Self.Player" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MatchEvent" Type="Self.MatchEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="MatchEvent">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchTeam_dbo_Match_MatchID">
+          <End Role="Match" Type="Self.Match" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MatchTeam" Type="Self.MatchTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="MatchID" />
+            </Principal>
+            <Dependent Role="MatchTeam">
+              <PropertyRef Name="MatchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchTeam_dbo_Player_PlayerID">
+          <End Role="Player" Type="Self.Player" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MatchTeam" Type="Self.MatchTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="MatchTeam">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchTeam_dbo_PlayerRole_PlayerRoleID">
+          <End Role="PlayerRole" Type="Self.PlayerRole" Multiplicity="0..1" />
+          <End Role="MatchTeam" Type="Self.MatchTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerRole">
+              <PropertyRef Name="PlayerRoleID" />
+            </Principal>
+            <Dependent Role="MatchTeam">
+              <PropertyRef Name="PlayerRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchTeam_dbo_Training_TrainingID">
+          <End Role="Training" Type="Self.Training" Multiplicity="0..1" />
+          <End Role="MatchTeam" Type="Self.MatchTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Training">
+              <PropertyRef Name="TrainingID" />
+            </Principal>
+            <Dependent Role="MatchTeam">
+              <PropertyRef Name="TrainingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TeamManager1ModelStoreContainer">
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Match" EntityType="Self.Match" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatchEvent" EntityType="Self.MatchEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatchTeam" EntityType="Self.MatchTeam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerRole" EntityType="Self.PlayerRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Match_dbo_Location_LocationID" Association="Self.FK_dbo_Match_dbo_Location_LocationID">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Match_dbo_Team_TeamID" Association="Self.FK_dbo_Match_dbo_Team_TeamID">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchEvent_dbo_Match_MatchID" Association="Self.FK_dbo_MatchEvent_dbo_Match_MatchID">
+            <End Role="Match" EntitySet="Match" />
+            <End Role="MatchEvent" EntitySet="MatchEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchEvent_dbo_Player_PlayerID" Association="Self.FK_dbo_MatchEvent_dbo_Player_PlayerID">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="MatchEvent" EntitySet="MatchEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchTeam_dbo_Match_MatchID" Association="Self.FK_dbo_MatchTeam_dbo_Match_MatchID">
+            <End Role="Match" EntitySet="Match" />
+            <End Role="MatchTeam" EntitySet="MatchTeam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchTeam_dbo_Player_PlayerID" Association="Self.FK_dbo_MatchTeam_dbo_Player_PlayerID">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="MatchTeam" EntitySet="MatchTeam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchTeam_dbo_PlayerRole_PlayerRoleID" Association="Self.FK_dbo_MatchTeam_dbo_PlayerRole_PlayerRoleID">
+            <End Role="PlayerRole" EntitySet="PlayerRole" />
+            <End Role="MatchTeam" EntitySet="MatchTeam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchTeam_dbo_Training_TrainingID" Association="Self.FK_dbo_MatchTeam_dbo_Training_TrainingID">
+            <End Role="Training" EntitySet="Training" />
+            <End Role="MatchTeam" EntitySet="MatchTeam" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TeamManager1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClubName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressPostCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Matches" Relationship="Self.FK_dbo_Match_dbo_Location_LocationID" FromRole="Location" ToRole="Match" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="MatchID" />
+          </Key>
+          <Property Name="MatchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MatchDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="OppositionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="Formation" Type="Int32" Nullable="false" />
+          <Property Name="MatchNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SelectedMatchType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TeamID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_dbo_Match_dbo_Location_LocationID" FromRole="Match" ToRole="Location" />
+          <NavigationProperty Name="MatchEvents" Relationship="Self.FK_dbo_MatchEvent_dbo_Match_MatchID" FromRole="Match" ToRole="MatchEvent" />
+          <NavigationProperty Name="Team" Relationship="TeamManager1Model.FK_dbo_Match_dbo_Team_TeamID" FromRole="Match" ToRole="Team" />
+          <NavigationProperty Name="MatchTeams" Relationship="TeamManager1Model.FK_dbo_MatchTeam_dbo_Match_MatchID" FromRole="Match" ToRole="MatchTeam" />
+        </EntityType>
+        <EntityType Name="MatchEvent">
+          <Key>
+            <PropertyRef Name="MatchEventID" />
+          </Key>
+          <Property Name="MatchEventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerID" Type="Int32" Nullable="false" />
+          <Property Name="MatchID" Type="Int32" Nullable="false" />
+          <Property Name="MatchEventType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Match" Relationship="Self.FK_dbo_MatchEvent_dbo_Match_MatchID" FromRole="MatchEvent" ToRole="Match" />
+          <NavigationProperty Name="Player" Relationship="Self.FK_dbo_MatchEvent_dbo_Player_PlayerID" FromRole="MatchEvent" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+          </Key>
+          <Property Name="PlayerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamID" Type="Int32" Nullable="false" />
+          <Property Name="FirstNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Goals" Type="Int32" />
+          <Property Name="Appearances" Type="Int32" />
+          <Property Name="MinutesPlayed" Type="Int32" />
+          <Property Name="PersonalNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CoachingNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="YellowCards" Type="Int32" />
+          <Property Name="RedCards" Type="Int32" />
+          <NavigationProperty Name="MatchEvents" Relationship="Self.FK_dbo_MatchEvent_dbo_Player_PlayerID" FromRole="Player" ToRole="MatchEvent" />
+          <NavigationProperty Name="MatchTeams" Relationship="TeamManager1Model.FK_dbo_MatchTeam_dbo_Player_PlayerID" FromRole="Player" ToRole="MatchTeam" />
+        </EntityType>
+        <EntityType Name="Training">
+          <Key>
+            <PropertyRef Name="TrainingID" />
+          </Key>
+          <Property Name="TrainingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrainingDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TrainingNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MatchTeams" Relationship="TeamManager1Model.FK_dbo_MatchTeam_dbo_Training_TrainingID" FromRole="Training" ToRole="MatchTeam" />
+        </EntityType>
+        <Association Name="FK_dbo_Match_dbo_Location_LocationID">
+          <End Role="Location" Type="Self.Location" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchEvent_dbo_Match_MatchID">
+          <End Role="Match" Type="Self.Match" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MatchEvent" Type="Self.MatchEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="MatchID" />
+            </Principal>
+            <Dependent Role="MatchEvent">
+              <PropertyRef Name="MatchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchEvent_dbo_Player_PlayerID">
+          <End Role="Player" Type="Self.Player" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MatchEvent" Type="Self.MatchEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="MatchEvent">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TeamManager1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Locations" EntityType="Self.Location" />
+          <EntitySet Name="Matches" EntityType="Self.Match" />
+          <EntitySet Name="MatchEvents" EntityType="Self.MatchEvent" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="Trainings" EntityType="Self.Training" />
+          <AssociationSet Name="FK_dbo_Match_dbo_Location_LocationID" Association="Self.FK_dbo_Match_dbo_Location_LocationID">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchEvent_dbo_Match_MatchID" Association="Self.FK_dbo_MatchEvent_dbo_Match_MatchID">
+            <End Role="Match" EntitySet="Matches" />
+            <End Role="MatchEvent" EntitySet="MatchEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchEvent_dbo_Player_PlayerID" Association="Self.FK_dbo_MatchEvent_dbo_Player_PlayerID">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="MatchEvent" EntitySet="MatchEvents" />
+          </AssociationSet>
+          <EntitySet Name="MatchTeams" EntityType="TeamManager1Model.MatchTeam" />
+          <EntitySet Name="PlayerRoles" EntityType="TeamManager1Model.PlayerRole" />
+          <EntitySet Name="Teams" EntityType="TeamManager1Model.Team" />
+          <AssociationSet Name="FK_dbo_Match_dbo_Team_TeamID" Association="TeamManager1Model.FK_dbo_Match_dbo_Team_TeamID">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchTeam_dbo_Match_MatchID" Association="TeamManager1Model.FK_dbo_MatchTeam_dbo_Match_MatchID">
+            <End Role="Match" EntitySet="Matches" />
+            <End Role="MatchTeam" EntitySet="MatchTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchTeam_dbo_Player_PlayerID" Association="TeamManager1Model.FK_dbo_MatchTeam_dbo_Player_PlayerID">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="MatchTeam" EntitySet="MatchTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchTeam_dbo_PlayerRole_PlayerRoleID" Association="TeamManager1Model.FK_dbo_MatchTeam_dbo_PlayerRole_PlayerRoleID">
+            <End Role="PlayerRole" EntitySet="PlayerRoles" />
+            <End Role="MatchTeam" EntitySet="MatchTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MatchTeam_dbo_Training_TrainingID" Association="TeamManager1Model.FK_dbo_MatchTeam_dbo_Training_TrainingID">
+            <End Role="Training" EntitySet="Trainings" />
+            <End Role="MatchTeam" EntitySet="MatchTeams" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="MatchTeam">
+          <Key>
+            <PropertyRef Name="MatchTeamID" />
+          </Key>
+          <Property Name="MatchTeamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MatchID" Type="Int32" />
+          <Property Name="PlayerID" Type="Int32" Nullable="false" />
+          <Property Name="PlayerRoleID" Type="Int32" />
+          <Property Name="PlayerRating" Type="Int32" />
+          <Property Name="TrainingID" Type="Int32" />
+          <NavigationProperty Name="Match" Relationship="TeamManager1Model.FK_dbo_MatchTeam_dbo_Match_MatchID" FromRole="MatchTeam" ToRole="Match" />
+          <NavigationProperty Name="Player" Relationship="TeamManager1Model.FK_dbo_MatchTeam_dbo_Player_PlayerID" FromRole="MatchTeam" ToRole="Player" />
+          <NavigationProperty Name="PlayerRole" Relationship="TeamManager1Model.FK_dbo_MatchTeam_dbo_PlayerRole_PlayerRoleID" FromRole="MatchTeam" ToRole="PlayerRole" />
+          <NavigationProperty Name="Training" Relationship="TeamManager1Model.FK_dbo_MatchTeam_dbo_Training_TrainingID" FromRole="MatchTeam" ToRole="Training" />
+        </EntityType>
+        <EntityType Name="PlayerRole">
+          <Key>
+            <PropertyRef Name="PlayerRoleID" />
+          </Key>
+          <Property Name="PlayerRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerRoleDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MatchTeams" Relationship="TeamManager1Model.FK_dbo_MatchTeam_dbo_PlayerRole_PlayerRoleID" FromRole="PlayerRole" ToRole="MatchTeam" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamID" />
+          </Key>
+          <Property Name="TeamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SelectedTeamSize" Type="Int32" />
+          <NavigationProperty Name="Matches" Relationship="TeamManager1Model.FK_dbo_Match_dbo_Team_TeamID" FromRole="Team" ToRole="Match" />
+        </EntityType>
+        <Association Name="FK_dbo_Match_dbo_Team_TeamID">
+          <End Type="TeamManager1Model.Team" Role="Team" Multiplicity="1" />
+          <End Type="TeamManager1Model.Match" Role="Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamID" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="TeamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchTeam_dbo_Match_MatchID">
+          <End Type="TeamManager1Model.Match" Role="Match" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TeamManager1Model.MatchTeam" Role="MatchTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="MatchID" />
+            </Principal>
+            <Dependent Role="MatchTeam">
+              <PropertyRef Name="MatchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchTeam_dbo_Player_PlayerID">
+          <End Type="TeamManager1Model.Player" Role="Player" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TeamManager1Model.MatchTeam" Role="MatchTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerID" />
+            </Principal>
+            <Dependent Role="MatchTeam">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchTeam_dbo_PlayerRole_PlayerRoleID">
+          <End Type="TeamManager1Model.PlayerRole" Role="PlayerRole" Multiplicity="0..1" />
+          <End Type="TeamManager1Model.MatchTeam" Role="MatchTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayerRole">
+              <PropertyRef Name="PlayerRoleID" />
+            </Principal>
+            <Dependent Role="MatchTeam">
+              <PropertyRef Name="PlayerRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MatchTeam_dbo_Training_TrainingID">
+          <End Type="TeamManager1Model.Training" Role="Training" Multiplicity="0..1" />
+          <End Type="TeamManager1Model.MatchTeam" Role="MatchTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Training">
+              <PropertyRef Name="TrainingID" />
+            </Principal>
+            <Dependent Role="MatchTeam">
+              <PropertyRef Name="TrainingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TeamManager1ModelStoreContainer" CdmEntityContainer="TeamManager1Entities">
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="TeamManager1Model.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="ClubName" ColumnName="ClubName" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
+                <ScalarProperty Name="AddressPostCode" ColumnName="AddressPostCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matches">
+            <EntityTypeMapping TypeName="TeamManager1Model.Match">
+              <MappingFragment StoreEntitySet="Match">
+                <ScalarProperty Name="MatchID" ColumnName="MatchID" />
+                <ScalarProperty Name="MatchDatetime" ColumnName="MatchDatetime" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="OppositionName" ColumnName="OppositionName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Formation" ColumnName="Formation" />
+                <ScalarProperty Name="MatchNotes" ColumnName="MatchNotes" />
+                <ScalarProperty Name="SelectedMatchType" ColumnName="SelectedMatchType" />
+                <ScalarProperty Name="TeamID" ColumnName="TeamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MatchEvents">
+            <EntityTypeMapping TypeName="TeamManager1Model.MatchEvent">
+              <MappingFragment StoreEntitySet="MatchEvent">
+                <ScalarProperty Name="MatchEventID" ColumnName="MatchEventID" />
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="MatchID" ColumnName="MatchID" />
+                <ScalarProperty Name="MatchEventType" ColumnName="MatchEventType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="TeamManager1Model.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="TeamID" ColumnName="TeamID" />
+                <ScalarProperty Name="FirstNames" ColumnName="FirstNames" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Goals" ColumnName="Goals" />
+                <ScalarProperty Name="Appearances" ColumnName="Appearances" />
+                <ScalarProperty Name="MinutesPlayed" ColumnName="MinutesPlayed" />
+                <ScalarProperty Name="PersonalNotes" ColumnName="PersonalNotes" />
+                <ScalarProperty Name="CoachingNotes" ColumnName="CoachingNotes" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="YellowCards" ColumnName="YellowCards" />
+                <ScalarProperty Name="RedCards" ColumnName="RedCards" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trainings">
+            <EntityTypeMapping TypeName="TeamManager1Model.Training">
+              <MappingFragment StoreEntitySet="Training">
+                <ScalarProperty Name="TrainingID" ColumnName="TrainingID" />
+                <ScalarProperty Name="TrainingDatetime" ColumnName="TrainingDatetime" />
+                <ScalarProperty Name="TrainingNotes" ColumnName="TrainingNotes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MatchTeams">
+            <EntityTypeMapping TypeName="TeamManager1Model.MatchTeam">
+              <MappingFragment StoreEntitySet="MatchTeam">
+                <ScalarProperty Name="TrainingID" ColumnName="TrainingID" />
+                <ScalarProperty Name="PlayerRating" ColumnName="PlayerRating" />
+                <ScalarProperty Name="PlayerRoleID" ColumnName="PlayerRoleID" />
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="MatchID" ColumnName="MatchID" />
+                <ScalarProperty Name="MatchTeamID" ColumnName="MatchTeamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerRoles">
+            <EntityTypeMapping TypeName="TeamManager1Model.PlayerRole">
+              <MappingFragment StoreEntitySet="PlayerRole">
+                <ScalarProperty Name="PlayerRoleDesc" ColumnName="PlayerRoleDesc" />
+                <ScalarProperty Name="PlayerRoleID" ColumnName="PlayerRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="TeamManager1Model.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="SelectedTeamSize" ColumnName="SelectedTeamSize" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="TeamID" ColumnName="TeamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

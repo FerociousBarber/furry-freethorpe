@@ -1,0 +1,120 @@
+﻿@model TeamManager.Player
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Player</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstNames)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstNames)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Goals)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Goals)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Appearances)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Appearances)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinutesPlayed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinutesPlayed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonalNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonalNotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CoachingNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CoachingNotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YellowCards)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YellowCards)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RedCards)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RedCards)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

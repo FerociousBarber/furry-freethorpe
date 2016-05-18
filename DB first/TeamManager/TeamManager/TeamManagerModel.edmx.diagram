@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5af16ec1425045abba01c91d5f5e60c3" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="TeamManager1Model.Location" Width="1.5" PointX="5.875" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeamManager1Model.Match" Width="1.5" PointX="7.625" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeamManager1Model.MatchEvent" Width="1.5" PointX="3.375" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeamManager1Model.Player" Width="1.5" PointX="0.875" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeamManager1Model.Training" Width="1.5" PointX="5.875" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="TeamManager1Model.FK_dbo_Match_dbo_Location_LocationID" ManuallyRouted="false" />
+        <AssociationConnector Association="TeamManager1Model.FK_dbo_MatchEvent_dbo_Match_MatchID" ManuallyRouted="false" />
+        <AssociationConnector Association="TeamManager1Model.FK_dbo_MatchEvent_dbo_Player_PlayerID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TeamManager1Model.MatchTeam" Width="1.5" PointX="9.875" PointY="2.875" />
+        <EntityTypeShape EntityType="TeamManager1Model.PlayerRole" Width="1.5" PointX="7.625" PointY="13.625" />
+        <EntityTypeShape EntityType="TeamManager1Model.Team" Width="1.5" PointX="5.375" PointY="5.5" />
+        <AssociationConnector Association="TeamManager1Model.FK_dbo_Match_dbo_Team_TeamID" />
+        <AssociationConnector Association="TeamManager1Model.FK_dbo_MatchTeam_dbo_Match_MatchID" />
+        <AssociationConnector Association="TeamManager1Model.FK_dbo_MatchTeam_dbo_Player_PlayerID" />
+        <AssociationConnector Association="TeamManager1Model.FK_dbo_MatchTeam_dbo_PlayerRole_PlayerRoleID" />
+        <AssociationConnector Association="TeamManager1Model.FK_dbo_MatchTeam_dbo_Training_TrainingID" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
